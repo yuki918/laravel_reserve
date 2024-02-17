@@ -1,0 +1,55 @@
+# docker-composeのバージョン
+version: '3'
+
+# コンテナ定義
+services:
+  # webサーバー（nginx）
+  nginx:
+    container_name: "nginx"
+    build:
+      context: ./docker/nginx
+    depends_on:
+      - app
+    ports:
+      - 80:80
+    volumes:
+      - ./:/src
+      - ./docker/nginx/default.conf:/etc/nginx/default.conf
+
+  # appサーバー
+  app:
+    container_name: "app"
+    build:
+      context: ./docker/app
+    depends_on:
+      - db
+    volumes:
+      - ./:/src
+      - ./docker/app/php.ini:/usr/local/etc/app/php.ini
+
+  # MySQLサーバー
+  db:
+    image: mysql:8.0.33
+    container_name: "db"
+    volumes:
+      - ./docker/mysql:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=${DB_ROOT_PASSWORD}
+      - MYSQL_DATABASE=${DB_DATABASE}
+      - MYSQL_USER=${DB_USERNAME}
+      - MYSQL_PASSWORD=${DB_PASSWORD}
+    command: --max_allowed_packet=32505856
+    ports:
+      - 3306:3306
+      
+  # phpMyAdminサーバー
+  phpmyadmin:
+    container_name: phpmyadmin
+    image: phpmyadmin/phpmyadmin
+    environment:
+      - PMA_ARBITRARY=1
+      - PMA_HOSTS=db
+      - PMA_USER=root
+      - PMA_PASSWORD=root
+    ports:
+      - 8080:80

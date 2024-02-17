@@ -1,0 +1,4 @@
+/docker/mysql/
+.env
+.env.backup
+.env.production
