@@ -25,6 +25,8 @@ services:
       - db
     volumes:
       - ./:/src
+      - /src/src/node_modules
+      - /src/src/vendor
       - ./docker/app/php.ini:/usr/local/etc/app/php.ini
 
   # MySQLサーバー
