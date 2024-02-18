@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LivewireTestController;
+use App\Http\Controllers\AlpineTestController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,12 +19,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::controller(LivewireTestController::class)
-    ->prefix('livewire-test')->name('livewire-test.')->group(function() {
-        Route::get('/', 'index')->name('index');
-        Route::get('register', 'register')->name('register');
-});
-
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
@@ -33,3 +28,11 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 });
+
+Route::controller(LivewireTestController::class)
+    ->prefix('livewire-test')->name('livewire-test.')->group(function() {
+        Route::get('/', 'index')->name('index');
+        Route::get('register', 'register')->name('register');
+});
+
+Route::get('alpine-test', [AlpineTestController::class, 'index']);
