@@ -17,9 +17,9 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->text('information');
-            $table->integer('max_people');
             $table->datetime('start_date');
             $table->datetime('end_date');
+            $table->integer('max_people');
             $table->boolean('is_visible');
             $table->timestamps();
         });
