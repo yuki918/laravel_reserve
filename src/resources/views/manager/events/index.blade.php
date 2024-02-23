@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
+            イベント一覧
         </h2>
     </x-slot>
 
@@ -26,6 +26,7 @@
                           <th class="border-2 text-center text-bold px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">予約人数</th>
                           <th class="border-2 text-center text-bold px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">定員数</th>
                           <th class="border-2 text-center text-bold px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">表示・非表示</th>
+                          <th class="border-2 text-center text-bold px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">詳細</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -37,6 +38,7 @@
                             <td class="px-4 py-3 border-2">後ほど</td>
                             <td class="px-4 py-3 border-2">{{ $event->max_people }}</td>
                             <td class="px-4 py-3 border-2">{{ $event->is_visible }}</td>
+                            <td class="px-4 py-3 border-2"><a href="{{ route('events.show', ['event' => $event->id]) }}" class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring focus:ring-gray-300 disabled:opacity-25 transition">詳細</a></td>
                           </tr>
                         @endforeach
                       </tbody>
