@@ -52,12 +52,13 @@
                               @endif
                             </div>
                         </div>
-
-                        <div class="flex items-center justify-end mt-4">
-                            <x-jet-button class="ml-4">
-                                編集
-                            </x-jet-button>
-                        </div>
+                        @if ($event->eventDate >= \Carbon\Carbon::today()->format('Y年m月d日'))
+                            <div class="flex items-center justify-end mt-4">
+                                <x-jet-button class="ml-4">
+                                    編集
+                                </x-jet-button>
+                            </div>
+                        @endif
                     </form>
                 </div>
               </div>
