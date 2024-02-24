@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
+use App\models\User;
 
 class Event extends Model
 {
@@ -19,6 +20,12 @@ class Event extends Model
         'max_people',
         'is_visible',
     ];
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'reservations')
+                    ->withPivot('id', 'number_of_people', 'canceled_date');
+    }
 
     // イベント日付
     protected function eventDate(): Attribute

@@ -65,4 +65,35 @@
             </div>
         </div>
     </div>
+    <div class="py-12">
+      <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+          <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
+            <div class="container p-10 mx-auto">
+              <div class="w-full mx-auto overflow-auto">
+                  @if (!$users->isEmpty())
+                  予約情報
+                  <table class="mt-8 table-auto w-full text-left whitespace-no-wrap">
+                    <thead>
+                      <tr>
+                        <th class="border-2 text-center text-bold px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">お名前</th>
+                        <th class="border-2 text-center text-bold px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">予約人数</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      @foreach ($reservations as $reservation)
+                        @if(is_null($reservation['canceled_date']))
+                          <tr>
+                            <td class="px-4 py-3 border-2">{{ $reservation['name'] }}</td>
+                            <td class="px-4 py-3 border-2">{{ $reservation['number_of_people'] }}</td>
+                          </tr>
+                        @endif
+                      @endforeach
+                    </tbody>
+                  </table>
+                  @endif
+              </div>
+            </div>
+          </div>
+      </div>
+  </div>
 </x-app-layout>
