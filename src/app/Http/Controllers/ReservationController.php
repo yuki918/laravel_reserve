@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\Event;
 use App\Models\Reservation;
+use App\Services\EventService;
 
 class ReservationController extends Controller
 {
@@ -26,7 +27,9 @@ class ReservationController extends Controller
         } else {
           $resevablePeople = $event->max_people;
         }
-        return view('event-detail', compact(['event', 'resevablePeople']));
+        $isReservation = Reservation::where('user_id', '=', Auth::id())
+            ->where('event_id', '=', $id)->where('canceled_date', '=', null)->latest()->first();
+        return view('event-detail', compact('event', 'resevablePeople', 'isReservation'));
     }
 
     public function reserve(Request $request)

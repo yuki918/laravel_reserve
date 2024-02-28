@@ -45,16 +45,26 @@
                         </div>
                         <div class="mt-4">
                             <x-jet-label for="reserved_people" value="予約人数" />
-                            <select name="reserved_people" id="reserved_people">
-                              @for($i = 1; $i <= $resevablePeople; $i++)
-                                <option value="{{$i}}">{{$i}}人</option>
-                              @endfor
-                            </select>
+                            @if ($resevablePeople <= 0)
+                                満員です。
+                            @else
+                              <select name="reserved_people" id="reserved_people">
+                                @for($i = 1; $i <= $resevablePeople; $i++)
+                                  <option value="{{$i}}">{{$i}}人</option>
+                                @endfor
+                              </select>
+                            @endif
                         </div>
                         <input type="hidden" name="id" value="{{ $event->id }}">
-                        <x-jet-button class="mt-4">
-                            予約
-                        </x-jet-button>
+                        @if ($isReservation === null)
+                            @if ($resevablePeople > 0)
+                              <x-jet-button class="mt-4">
+                                  予約
+                              </x-jet-button>
+                            @endif
+                        @else
+                            <p class="mt-4">このイベントは既に予約済みです。</p>
+                        @endif
                     </form>
                 </div>
               </div>
