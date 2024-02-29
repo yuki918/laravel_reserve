@@ -18,7 +18,9 @@
                 @php $event = $events->firstWhere('start_date', $currentWeek[$i]['checkDay'] . " " . \EventConst::EVENT_TIME[$j]); @endphp
                 @if(!is_null($event))
                   @php $eventPeriod = \Carbon\Carbon::parse($event->start_date)->diffInMinutes($event->end_date) / 30 - 1; @endphp
-                  <div class="py-1 px-2 h-8 border border-gray-200 text-xs flex items-center justify-center bg-blue-100">{{ $event->name }}</div>
+                  <div class="py-1 px-2 h-8 border border-gray-200 text-xs flex items-center justify-center bg-blue-100">
+                    <a href="{{ route('events.detail', ['id' => $event->id]) }}" class="block">{{ $event->name }}</a>
+                  </div>
                   @if ($eventPeriod > 0)
                     @for($k = 0; $k < $eventPeriod; $k++)
                       <div class="py-1 px-2 h-8 border border-gray-200 text-xs flex items-center justify-center bg-blue-100"></div>
