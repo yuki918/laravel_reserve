@@ -42,9 +42,10 @@ Route::middleware('can:user-higher')->group(function() {
   Route::get('mypage', [MyPageController::class, 'index'])->name('mypage.index');
   Route::get('mypage/{id}', [MyPageController::class, 'show'])->name('mypage.show');
   Route::post('mypage/{id}', [MyPageController::class, 'cancel'])->name('mypage.cancel');
-  Route::get('detail/{id}', [ReservationController::class, 'detail'])->name('events.detail');
+  // Route::get('detail/{id}', [ReservationController::class, 'detail'])->name('events.detail');
   Route::post('detail/{id}', [ReservationController::class, 'reserve'])->name('events.reserve');
 });
+Route::middleware('auth')->get('detail/{id}', [ReservationController::class, 'detail'])->name('events.detail');
 
 Route::controller(LivewireTestController::class)
     ->prefix('livewire-test')->name('livewire-test.')->group(function() {
